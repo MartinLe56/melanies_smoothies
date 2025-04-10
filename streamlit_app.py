@@ -6,6 +6,9 @@ from snowflake.snowpark.functions import col
 #Setup API Requests
 import requests
 
+#Import Pandas
+import pandas as pd
+
 helpful_links = [
     "https://docs.streamlit.io",
     "https://docs.snowflake.com/en/developer-guide/streamlit/about-streamlit",
@@ -35,10 +38,15 @@ st.write('The name on your smoothie will be: ', name_on_order)
 
 #List with different fruit imported
 #session = get_active_session()
-#my_dataframe = session.table("smoothies.public.fruit_options").select(col('fruit_name'), col('search_on')) #only select column Fruit_name
-my_dataframe = session.table("smoothies.public.fruit_options").select(col('search_on')) #only select column Fruit_name
-st.dataframe(data=my_dataframe, use_container_width=True)
+my_dataframe = session.table("smoothies.public.fruit_options").select(col('fruit_name'), col('search_on')) #only select column Fruit_name
+#my_dataframe = session.table("smoothies.public.fruit_options").select(col('search_on')) #only select column Fruit_name
+#st.dataframe(data=my_dataframe, use_container_width=True)
 #st.stop()
+
+# Convert the Snowpark Dataframe to a Pandas Dataframe so we can use the LOC function
+pd_df = my_dataframe.to_pandas()
+st.dataframe(pd_df)
+st.stop()
 
 #create a multiselect menu
 ingredients_list = st.multiselect(
