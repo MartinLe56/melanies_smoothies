@@ -37,7 +37,7 @@ st.write('The name on your smoothie will be: ', name_on_order)
 #session = get_active_session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('fruit_name'), col('search_on')) #only select column Fruit_name
 st.dataframe(data=my_dataframe, use_container_width=True)
-st.stop()
+#st.stop()
 
 #create a multiselect menu
 ingredients_list = st.multiselect(
