@@ -3,6 +3,8 @@ import streamlit as st
 #from snowflake.snowpark.context import get_active_session
 #Import "col" (column function)
 from snowflake.snowpark.functions import col
+#Setup API Requests
+import requests
 
 helpful_links = [
     "https://docs.streamlit.io",
@@ -54,6 +56,9 @@ if ingredients_list: #if List is NULL
     #FOR LOOP to add each selection of fruit to the string
     for fruit_chosen in ingredients_list:
         ingredients_string += fruit_chosen + ' '
+        st.subheader(fruit_chosen + ' Nutrition Information')
+        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + fruit_chosen)
+        sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
     # st.write(ingredients_string)
     
     # Build a SQL Insert Statement & Test It
@@ -73,10 +78,10 @@ if ingredients_list: #if List is NULL
         st.success('Your Smoothie is ordered!', icon="✅")
 
 #Setup API Requests
-import requests
-smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
-st.text(smoothiefroot_response.json())
-sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
+# import requests
+# smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
+# st.text(smoothiefroot_response.json())
+# sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
 
 
 
