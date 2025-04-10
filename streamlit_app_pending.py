@@ -58,7 +58,7 @@ else:
 #New Section to display smoothiefroot nutrition information
 import requests
 smoothiefroot_response = request.get("https://my.smoothiefroot.com/api/fruit/watermelon")
-st.text(smoothiefroot_response)
+st.text(smoothiefroot_response.json())
 
 
 
